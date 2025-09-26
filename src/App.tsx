@@ -1,17 +1,22 @@
 // import { useSuspenseQuery } from "@tanstack/react-query";
-// import createToDoQueryOptions from "./queryOptions/createToDoQueryOptions";
 import { Spin } from "antd";
 
 import { Suspense } from "react";
 import Card from "./component/Card";
+import { useQueries } from "@tanstack/react-query";
+import {
+  createPostsQueryOptions,
+  createToDoQueryOptions,
+  createUsersQueryOptions,
+} from "./query/queries";
 
 function App() {
-  // const { data, isPending } = useSuspenseQuery(createToDoQueryOptions());
-  // console.log(data);
+  const [{data}, result2, result3] = useQueries({
+    queries: [createToDoQueryOptions(), createPostsQueryOptions(),createUsersQueryOptions()],
+  });
 
   return (
     <>
-      {/* <div>{isPending ? <Spin /> : JSON.stringify(data[0]?.title)}</div> */}
       <Suspense fallback={<Spin />}>
         <Card />
       </Suspense>
